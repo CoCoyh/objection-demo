@@ -41,6 +41,17 @@ class Animal extends Model {
       }
     };
   }
+  static get modifiers() {
+    return {
+      orderByName(builder) {
+        builder.orderBy('name');
+      },
+
+      onlyDogs(builder) {
+        builder.where('species', 'dog');
+      }
+    };
+  }
 }
 
 module.exports = Animal;

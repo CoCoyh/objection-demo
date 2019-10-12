@@ -4,8 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const promiseRouter = require('express-promise-router');
 const knexConfig = require('./knexfile');
-const registerApi = require('./api');
+const registerApi = require('./router');
 const { Model } = require('objection');
+const queryApi = require('./api/query');
+const relationQuery = require('./api/relationQuery');
+const eagerApi = require('./api/eager');
+const inserApi = require('./api/insertGraph');
+const upsertApi = require('./api/upsertGraph');
+const transactionApi = require('./api/transaction');
 
 // Initialize knex.
 const knex = Knex(knexConfig.development);
@@ -24,6 +30,12 @@ const app = express()
 
 // Register our REST API.
 registerApi(router);
+queryApi(router);
+relationQuery(router);
+eagerApi(router);
+inserApi(router);
+upsertApi(router);
+transactionApi(router);
 
 // Error handling. The `ValidationError` instances thrown by objection.js have a `statusCode`
 // property that is sent as the status code of the response.

@@ -59,7 +59,8 @@ class Person extends Model {
           // ManyToMany relation needs the `through` object to describe the join table.
           through: {
             from: 'persons_movies.personId',
-            to: 'persons_movies.movieId'
+            to: 'persons_movies.movieId',
+            extra: ['awesomeness']
           },
           to: 'movies.id'
         }
@@ -83,6 +84,18 @@ class Person extends Model {
         }
       }
     };
+  }
+
+  static get modifiers() {
+    return {
+      defaultSelects(builder) {
+        builder.select('id', 'firstName')
+      },
+
+      orderByAge(builder) {
+        builder.orderBy('age');
+      }
+    }
   }
 }
 

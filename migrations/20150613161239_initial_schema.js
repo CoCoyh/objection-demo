@@ -46,6 +46,8 @@ exports.up = knex => {
         .inTable('movies')
         .onDelete('CASCADE')
         .index();
+      table
+        .integer('awesomeness');
     });
 };
 
